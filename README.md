@@ -3,6 +3,18 @@ Provides easy Twitter integration.
 
 Connects to the Twitter API using OAuth2 and exposes basic endpoints to retrieve tweets and users.
 
+All endpoints returns JSON.
+
+## Exposed endpoints
+`/tweets/:username`
+returns tweets for requested Twitter user
+
+`/tweets/:username/media`
+returns tweets with media for requested Twitter user
+
+`/user/:username`
+returns requested Twitter user
+
 ## Setup
 Edit `src/config.json` and replace `YOUR-TWITTER-KEY-HERE` and `YOUR-TWITTER-SECRET-HERE` with your app's data.
 
