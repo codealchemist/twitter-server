@@ -20,6 +20,28 @@ Edit `src/config.json` and replace `YOUR-TWITTER-KEY-HERE` and `YOUR-TWITTER-SEC
 
 While signed in to Twitter open [your Twitter apps page](https://apps.twitter.com) and grab the required data from there.
 
+## Install
+
+`git clone https://github.com/codealchemist/twitter-server`
+
+## Alternative install
+
+You can also use `twitter-server` as an npm dependency.
+
+`npm install twitter-server --save`
+
+To always run it before your app you can have something like this on your `package.json`:
+
+```
+  "scripts": {
+    "start": "node node_modules/twitter-server/src/index.js && node src/index.js"
+  }
+```
+
+Being `src/index.js` the entry point of your app.
+
+Then you can start your app with `npm start` and, first, it will start `twitter-server`.
+
 ## Start
 `npm start`
 
