@@ -34,7 +34,7 @@ It will check:
 ## Continuous development test
 `npm run test-watch`
 
-This will run unit tests only continually watching for file changes.
+This will run unit tests only, continually watching for file changes.
 
 ## Thanks
 
