@@ -2,7 +2,7 @@
   "name": "twitter-server",
   "version": "1.0.0",
   "description": "Provides easy Twitter integration. Connects to the Twitter API using OAuth2 and exposes basic endpoints to retrieve tweets and users.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "standard && npm-check -p && mocha --compilers js:babel-core/register --recursive --reporter spec",
     "test-watch": "mocha --compilers js:babel-core/register --watch --recursive --reporter spec",
