@@ -1,0 +1,52 @@
+{
+  "name": "twitter-server",
+  "version": "1.0.0",
+  "description": "Provides easy Twitter integration. Connects to the Twitter API using OAuth2 and exposes basic endpoints to retrieve tweets and users.",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && npm-check -p && mocha --compilers js:babel-core/register --recursive --reporter spec",
+    "test-watch": "mocha --compilers js:babel-core/register --watch --recursive --reporter spec",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codealchemist/twitter-server.git"
+  },
+  "keywords": [
+    "twitter",
+    "node"
+  ],
+  "author": "Alberto Miranda <b3rt.js@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codealchemist/twitter-server/issues"
+  },
+  "homepage": "https://github.com/codealchemist/twitter-server#readme",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "npm-check": "^5.2.3",
+    "standard": "^8.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.0",
+    "errorhandler": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "morgan": "^1.7.0",
+    "oauth": "^0.9.14",
+    "winston": "^2.2.0"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "beforeEach"
+    ]
+  }
+}

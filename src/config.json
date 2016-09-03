@@ -1,0 +1,7 @@
+{
+  "twitter": {
+    "key": "YOUR-TWITTER-KEY-HERE",
+	"secret": "YOUR-TWITTER-SECRET-HERE"
+  },
+  "tweetsPerRequest": 70
+}
