@@ -18,6 +18,8 @@ returns requested Twitter user
 ## Setup
 Edit `src/config.json` and replace `YOUR-TWITTER-KEY-HERE` and `YOUR-TWITTER-SECRET-HERE` with your app's data.
 
+While signed in to Twitter open [your Twitter apps page](https://apps.twitter.com) and grab the required data from there.
+
 ## Start
 `npm start`
 
