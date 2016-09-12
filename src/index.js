@@ -13,7 +13,7 @@ var argv = require('minimist')(process.argv.slice(2))
 var fs = require('fs')
 
 // print ascii art
-var art = fs.readFileSync('src/ascii-art.txt', 'utf8')
+var art = fs.readFileSync(__dirname + '/ascii-art.txt', 'utf8')
 console.info(art)
 
 // read config
