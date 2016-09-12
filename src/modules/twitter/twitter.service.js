@@ -11,10 +11,12 @@ const logger = new (winston.Logger)({
 module.exports = class TwitterService {
   constructor (key, secret) {
     this.accessToken = null
+
     this.mockedMode = false
     if (!key || !secret) {
       // use mocked mode, response with mocks
       this.mockedMode = true
+      this.accessToken = 'mocked-access-token'
       this.mocks = {
         tweets: require('./tweets.mock'),
         user: require('./user.mock')

@@ -38,9 +38,6 @@ describe('TwitterService', function () {
   it('should reuse access token', function (done) {
     twitterService.getAccessToken()
       .then(function (accessToken) {
-        return accessToken
-      })
-      .then(function (accessToken) {
         expect(twitterService.getAccessToken()).to.eventually.equal(accessToken).notify(done)
       })
   })
