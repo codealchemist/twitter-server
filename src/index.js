@@ -1,19 +1,21 @@
 #!/bin/env node
 
-var express = require('express')
-var bodyParser = require('body-parser')
-var session = require('express-session')
-var morgan = require('morgan')
-var cookieParser = require('cookie-parser')
-var errorhandler = require('errorhandler')
-var http = require('http')
-var cors = require('cors')
-var app = express()
-var argv = require('minimist')(process.argv.slice(2))
-var fs = require('fs')
+const express = require('express')
+const bodyParser = require('body-parser')
+const session = require('express-session')
+const morgan = require('morgan')
+const cookieParser = require('cookie-parser')
+const errorhandler = require('errorhandler')
+const http = require('http')
+const cors = require('cors')
+const app = express()
+const argv = require('minimist')(process.argv.slice(2))
+const fs = require('fs')
+const path = require('path')
 
 // print ascii art
-var art = fs.readFileSync(__dirname + '/ascii-art.txt', 'utf8')
+var artFile = path.join(__dirname, '/ascii-art.txt')
+var art = fs.readFileSync(artFile, 'utf8')
 console.info(art)
 
 // read config
@@ -85,8 +87,9 @@ require('./routes')(app, config)
 
 // start server
 http.createServer(app).listen(app.get('port'), app.get('ip'), function () {
-  console.log('✔ Express server listening at http://%s:%d ', app.get('ip'), app.get('port'))
-  console.log('-'.repeat(80))
+  console.info()
+  console.info('✔ Express server listening at http://%s:%d ', app.get('ip'), app.get('port'))
+  console.info('-'.repeat(80))
 })
 
 module.exports = app
