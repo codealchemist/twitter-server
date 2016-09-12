@@ -1,6 +1,4 @@
-const config = require('../../config')
 const TwitterService = require('./twitter.service')
-const twitter = new TwitterService(config.twitter.key, config.twitter.secret)
 const winston = require('winston')
 const logger = new (winston.Logger)({
   transports: [
@@ -9,13 +7,18 @@ const logger = new (winston.Logger)({
 })
 
 module.exports = class TwitterController {
+  constructor (config) {
+    this.config = config
+    this.twitter = new TwitterService(config.twitter.key, config.twitter.secret)
+  }
+
   getTweets (req, res) {
     var username = req.params.username
     if (!username) throw new Error('NO USERNAME SPECIFIED! URL format: /getTweets/[username]')
 
     // get tweets for current username
-    twitter.getTweets({
-      count: req.params.count || config.tweetsPerRequest,
+    this.twitter.getTweets({
+      count: req.params.count || this.config.tweetsPerRequest,
       username: username
     })
     .then((tweets) => {
@@ -30,8 +33,8 @@ module.exports = class TwitterController {
     if (!username) throw new Error('NO USERNAME SPECIFIED! URL format: /getTweets/[username]')
 
     // get tweets for current username
-    twitter.getTweets({
-      count: req.params.count || config.tweetsPerRequest,
+    this.twitter.getTweets({
+      count: req.params.count || this.config.tweetsPerRequest,
       username: username
     })
     .then((tweets) => {
@@ -50,7 +53,7 @@ module.exports = class TwitterController {
     var username = req.params.username
     if (!username) throw new Error('NO USERNAME SPECIFIED! URL format: /getTweets/[username]')
 
-    twitter.getUser(username)
+    this.twitter.getUser(username)
       .then((user) => {
         if (user.error) this.respond(res, user, 500)
         if (!user) this.respond(res, [])
