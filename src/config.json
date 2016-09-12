@@ -1,7 +1,7 @@
 {
   "twitter": {
-    "key": "YOUR-TWITTER-KEY-HERE",
-	"secret": "YOUR-TWITTER-SECRET-HERE"
+    "key": null,
+	"secret": null
   },
   "tweetsPerRequest": 70,
   "ip": "127.0.0.1",

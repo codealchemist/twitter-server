@@ -1,7 +1,6 @@
 #!/bin/env node
 
 var express = require('express')
-// var favicon = require('serve-favicon')
 var bodyParser = require('body-parser')
 var session = require('express-session')
 var morgan = require('morgan')
@@ -11,32 +10,47 @@ var http = require('http')
 var cors = require('cors')
 var app = express()
 var argv = require('minimist')(process.argv.slice(2))
+var fs = require('fs')
+
+// print ascii art
+var art  = fs.readFileSync('src/ascii-art.txt', 'utf8')
+console.info(art)
 
 // read config
-var fs = require('fs')
 var configFile = argv['c'] || argv['config']
-var defaultConfigFile = process.cwd() + '/src/config'
+var defaultConfigFile = './config'
 if (!configFile) {
-	configFile = defaultConfigFile
+    configFile = defaultConfigFile
 } else {
-	if (!configFile.match('.json$')) {
-		console.error('- ERROR: config file must be a JSON file:', configFile)
-		configFile = defaultConfigFile
-	} else {
-		try {
-			var stats = fs.lstatSync(configFile)
-			configFile = process.cwd() + '/' + configFile.replace('.json', '')
-		} catch (e) {
-			console.error('- ERROR: unable to read config file', configFile)
-			configFile = defaultConfigFile
-		}
-	}
+  if (!configFile.match('.json$')) {
+    console.error('- ERROR: Config file must be a JSON file:', configFile)
+    configFile = defaultConfigFile
+  } else {
+    try {
+      var stats = fs.lstatSync(configFile)
+      configFile = process.cwd() + '/' + configFile.replace('.json', '')
+    } catch (e) {
+      console.error('- ERROR: Unable to read config file:', configFile)
+      configFile = defaultConfigFile
+    }
+  }
 }
 
 if (configFile === defaultConfigFile) {
-	console.info('- using default config (you will need to add your twitter credentials)')
+  console.info('- Using default config, MOCKED MODE.')
+  console.info('  Will return mocked responses, useful for integration testing.')
+  console.info('  You will need to provide a config file to use the Twitter API.')
+  console.info('  Copy the default config file and add your credentials there.')
+  console.info('  Default config: "src/config.json".')
+  console.info()
+  console.info('  Using a config file:')
+  console.info('  npm start -- --config my-config-file.json')
+  console.info()
+  console.info('  Or:')
+  console.info('  node src/index.js --config my-config-file.json')
+  console.info()
 }
-console.info('- config file:', configFile)
+console.info('- Config file:', configFile)
 var config = require(configFile)
 
 // set ip and port

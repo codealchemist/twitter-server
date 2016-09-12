@@ -11,6 +11,17 @@ const logger = new (winston.Logger)({
 module.exports = class TwitterService {
   constructor (key, secret) {
     this.accessToken = null
+    this.mockedMode = false
+    if (!key || !secret) {
+      // use mocked mode, response with mocks
+      this.mockedMode = true
+      this.mocks = {
+        tweets: require('./tweets.mock'),
+        user: require('./user.mock')
+      }
+      return
+    }
+
     this.oauth2 = new OAuth2(key, secret, 'https://api.twitter.com/', null, 'oauth2/token', null)
   }
 
@@ -46,6 +57,8 @@ module.exports = class TwitterService {
     params.count = params.count || 20
 
     var promise = new Promise((resolve, reject) => {
+      if (this.mockedMode) return resolve(this.mocks.tweets)
+
       this.getAccessToken()
         .then(onAccessToken)
 
@@ -98,6 +111,8 @@ module.exports = class TwitterService {
    */
   getUser (username) {
     var promise = new Promise((resolve, reject) => {
+      if (this.mockedMode) return resolve(this.mocks.user)
+
       this.getAccessToken()
         .then(onAccessToken)
 
