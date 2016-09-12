@@ -3,5 +3,7 @@
     "key": "YOUR-TWITTER-KEY-HERE",
 	"secret": "YOUR-TWITTER-SECRET-HERE"
   },
-  "tweetsPerRequest": 70
+  "tweetsPerRequest": 70,
+  "ip": "127.0.0.1",
+  "port": "3080"
 }
