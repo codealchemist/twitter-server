@@ -16,34 +16,51 @@ returns tweets with media for requested Twitter user
 returns requested Twitter user
 
 ## Setup
-Edit `src/config.json` and replace `YOUR-TWITTER-KEY-HERE` and `YOUR-TWITTER-SECRET-HERE` with your app's data.
+Make a copy of `src/config.json` and set your Twitter credentials by replacing `key` and `secret` with your app's data.
 
 While signed in to Twitter open [your Twitter apps page](https://apps.twitter.com) and grab the required data from there.
 
+You will provide this config file when starting twitter-server.
+
 ## Install
+
+Using git:
 
 `git clone https://github.com/codealchemist/twitter-server`
 
-## Alternative install
-
-You can also use `twitter-server` as an npm dependency.
+Using npm:
 
 `npm install twitter-server --save`
+
+Or globally if you like:
+
+`npm install twitter-server --global`
 
 To always run it before your app you can have something like this on your `package.json`:
 
 ```
   "scripts": {
-    "start": "node node_modules/twitter-server/src/index.js && node src/index.js"
+    "start": "node node_modules/twitter-server/src/index.js --config twitter-server-config.json && node src/index.js"
   }
 ```
 
-Being `src/index.js` the entry point of your app.
+Being `src/index.js` the entry point of your app and `twitter-server-config.json` your custom config for twitter-server located at the root of your project.
 
 Then you can start your app with `npm start` and, first, it will start `twitter-server`.
 
 ## Start
+
+In *mocked mode*, without the need to provide Twitter credentials, it will return mocked responses, useful for integration testing:
+
 `npm start`
+
+If you already created a **config file with your Twitter credentials** then:
+
+`npm start -- --config my-config.json`
+
+Or:
+
+`node src/index.js --config my-config.json`
 
 ## Test
 `npm test`
