@@ -41,6 +41,7 @@
     "minimist": "^1.2.0",
     "morgan": "^1.7.0",
     "oauth": "^0.9.14",
+    "requestify": "^0.2.3",
     "winston": "^2.2.0"
   },
   "standard": {

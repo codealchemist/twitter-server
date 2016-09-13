@@ -9,7 +9,7 @@ const logger = new (winston.Logger)({
 module.exports = class TwitterController {
   constructor (config) {
     this.config = config
-    this.twitter = new TwitterService(config.twitter.key, config.twitter.secret)
+    this.twitter = new TwitterService(config)
   }
 
   getTweets (req, res) {

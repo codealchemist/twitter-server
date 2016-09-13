@@ -12,7 +12,7 @@ describe('TwitterService', function () {
   var twitterService
 
   beforeEach(function () {
-    twitterService = new TwitterService(config.twitter.key, config.twitter.secret)
+    twitterService = new TwitterService(config)
   })
 
   it('should be defined', function () {

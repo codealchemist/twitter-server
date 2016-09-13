@@ -1,4 +1,4 @@
-const https = require('https')
+const requestify = require('requestify')
 const OAuth2 = require('oauth').OAuth2
 const querystring = require('querystring')
 const winston = require('winston')
@@ -9,12 +9,20 @@ const logger = new (winston.Logger)({
 })
 
 module.exports = class TwitterService {
-  constructor (key, secret) {
+  constructor (config) {
+    this.config = config || {}
+    this.cacheTtl = config.cacheTtl || {
+      // ttl in minutes for both
+      'users': 15,
+      'tweets': 2
+    }
     this.accessToken = null
 
+    // if there's no key or secret
+    // use mocked mode, response with mocks
+    let {key, secret} = config.twitter
     this.mockedMode = false
     if (!key || !secret) {
-      // use mocked mode, response with mocks
       this.mockedMode = true
       this.accessToken = 'mocked-access-token'
       this.mocks = {
@@ -61,12 +69,7 @@ module.exports = class TwitterService {
     var promise = new Promise((resolve, reject) => {
       if (this.mockedMode) return resolve(this.mocks.tweets)
 
-      this.getAccessToken()
-        .then(onAccessToken)
-
-      // ------------------------------
-
-      function onAccessToken (accessToken) {
+      this.getAccessToken().then((accessToken) => {
         var requestParamsObj = {
           screen_name: params.username,
           count: params.count
@@ -75,31 +78,26 @@ module.exports = class TwitterService {
 
         var requestParams = querystring.stringify(requestParamsObj)
         logger.info('getTweets: request params: ', requestParams)
-
-        var options = {
-          hostname: 'api.twitter.com',
-          path: '/1.1/statuses/user_timeline.json?' + requestParams,
+        var url = 'https://api.twitter.com/1.1/statuses/user_timeline.json?' + requestParams
+        requestify.request(url, {
+          method: 'GET',
+          cache: {
+            cache: true,
+            expires: 1000 * 60 * this.cacheTtl.tweets
+          },
           headers: {
             Authorization: 'Bearer ' + accessToken
-          }
-        }
-
-        https.get(options, (result) => {
-          var buffer = ''
-          result.setEncoding('utf8')
-
-          result.on('data', (data) => {
-            buffer += data
-          })
-
-          result.on('end', () => {
-            var tweets = JSON.parse(buffer)
-            return resolve(tweets)
-          })
-
-          result.on('error', reject)
+          },
+          dataType: 'json'
         })
-      }
+        .then(onResponse)
+        .fail(reject)
+
+        function onResponse (response) {
+          var body = response.getBody()
+          resolve(body)
+        }
+      })
     })
 
     return promise
@@ -115,41 +113,32 @@ module.exports = class TwitterService {
     var promise = new Promise((resolve, reject) => {
       if (this.mockedMode) return resolve(this.mocks.user)
 
-      this.getAccessToken()
-        .then(onAccessToken)
-
-      // ------------------------------
-
-      function onAccessToken (accessToken) {
+      this.getAccessToken().then((accessToken) => {
         logger.info('getUser:', username)
         var requestParamsObj = {
           screen_name: username
         }
         var requestParams = querystring.stringify(requestParamsObj)
-        var options = {
-          hostname: 'api.twitter.com',
-          path: '/1.1/users/show.json?' + requestParams,
+        var url = 'https://api.twitter.com/1.1/users/show.json?' + requestParams
+        requestify.request(url, {
+          method: 'GET',
+          cache: {
+            cache: true,
+            expires: 1000 * 60 * this.cacheTtl.users
+          },
           headers: {
             Authorization: 'Bearer ' + accessToken
-          }
-        }
-
-        https.get(options, (result) => {
-          var buffer = ''
-          result.setEncoding('utf8')
-
-          result.on('data', function (data) {
-            buffer += data
-          })
-
-          result.on('end', function () {
-            var user = JSON.parse(buffer)
-            return resolve(user)
-          })
-
-          result.on('error', reject)
+          },
+          dataType: 'json'
         })
-      }
+        .then(onResponse)
+        .fail(reject)
+
+        function onResponse (response) {
+          var body = response.getBody()
+          resolve(body)
+        }
+      })
     })
 
     return promise

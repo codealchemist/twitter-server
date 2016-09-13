@@ -54,6 +54,11 @@ if (configFile === defaultConfigFile) {
 }
 console.info('- Config file:', configFile)
 var config = require(configFile)
+if (config.cacheTtl) {
+  console.info('- Cache TTL (minutes):', config.cacheTtl)
+} else {
+  console.info('- DEFAULT Cache TTL (minutes):', {users: 15, tweets: 2})
+}
 
 // set ip and port
 var ip = config.ip || '127.0.0.1'
