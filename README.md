@@ -15,6 +15,23 @@ returns tweets with media for requested Twitter user
 `/user/:username`
 returns requested Twitter user
 
+## Cache
+
+Twitter responses are cached by default.
+
+Adjust cache TTL by setting the desired values in your config file.
+
+These are the default values expressed in minutes:
+
+```
+"cacheTtl": {
+  "users": 15,
+  "tweets": 2
+}
+```
+
+Set a value of `0` to disable cache for an endpoint.
+
 ## Setup
 Make a copy of `src/config.json` and set your Twitter credentials by replacing `key` and `secret` with your app's data.
 
