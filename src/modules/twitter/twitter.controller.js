@@ -17,9 +17,12 @@ module.exports = class TwitterController {
     if (!username) throw new Error('NO USERNAME SPECIFIED! URL format: /getTweets/[username]')
 
     // get tweets for current username
+    req.query = req.query || {}
+    let count = req.query.count || this.config.tweetsPerRequest
     this.twitter.getTweets({
-      count: req.params.count || this.config.tweetsPerRequest,
-      username: username
+      username: username,
+      count: count,
+      maxId: req.query.max_id
     })
     .then((tweets) => {
       if (tweets.error) this.respond(res, tweets, 500)
@@ -33,9 +36,12 @@ module.exports = class TwitterController {
     if (!username) throw new Error('NO USERNAME SPECIFIED! URL format: /getTweets/[username]')
 
     // get tweets for current username
+    req.query = req.query || {}
+    let count = req.query.count || this.config.tweetsPerRequest
     this.twitter.getTweets({
-      count: req.params.count || this.config.tweetsPerRequest,
-      username: username
+      username: username,
+      count: count,
+      maxId: req.query.max_id
     })
     .then((tweets) => {
       if (tweets.error) this.respond(res, tweets, 500)
