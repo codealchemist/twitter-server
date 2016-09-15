@@ -62,19 +62,16 @@ module.exports = class TwitterService {
    * @param  {object} params {count, username, maxId}
    * @return {object} promise
    */
-  getTweets (params) {
-    // defaults
-    params.count = params.count || 20
-
+  getTweets ({ username, count = 20, maxId }) {
     var promise = new Promise((resolve, reject) => {
       if (this.mockedMode) return resolve(this.mocks.tweets)
 
       this.getAccessToken().then((accessToken) => {
         var requestParamsObj = {
-          screen_name: params.username,
-          count: params.count
+          screen_name: username,
+          count: count
         }
-        if (params.maxId) requestParamsObj.max_id = params.maxId
+        if (maxId) requestParamsObj.max_id = maxId
 
         var requestParams = querystring.stringify(requestParamsObj)
         logger.info('getTweets: request params: ', requestParams)
@@ -90,17 +87,34 @@ module.exports = class TwitterService {
           },
           dataType: 'json'
         })
-        .then(onResponse)
+        .then((response) => onResponse(response, this.removeRepeatedMax))
         .fail(reject)
 
-        function onResponse (response) {
+        function onResponse (response, removeRepeatedMax) {
           var body = response.getBody()
+          if (maxId) body = removeRepeatedMax(body, maxId)
           resolve(body)
         }
       })
     })
 
     return promise
+  }
+
+  /**
+   * When paginating tweets the last one from one batch (max_id)
+   * can be the first one of the next batch.
+   * Remove it if this is the case.
+   *
+   * @param  {array} tweets [description]
+   * @param  {string} maxId
+   * @return {array} tweets without the repeated one
+   */
+  removeRepeatedMax (tweets, maxId) {
+    if (!tweets.length) return []
+    var firstTweet = tweets[0]
+    if (firstTweet.id === +maxId) tweets.splice(0, 1)
+    return tweets
   }
 
   /**
