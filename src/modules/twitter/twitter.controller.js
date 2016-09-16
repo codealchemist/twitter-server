@@ -24,11 +24,20 @@ module.exports = class TwitterController {
       count: count,
       maxId: req.query.max_id
     })
-    .then((tweets) => {
-      if (tweets.error) this.respond(res, tweets, 500)
-      if (!tweets || !tweets.length) this.respond(res, [])
-      this.respond(res, tweets)
-    })
+    .then(
+      // success
+      (tweets) => {
+        if (tweets.error) this.respond(res, tweets, 500)
+        if (!tweets || !tweets.length) this.respond(res, [])
+        this.respond(res, tweets)
+      },
+
+      // fail
+      (error) => {
+        logger.error('ERROR: getTweets:', error)
+        this.respond(res, error, 500)
+      }
+    )
   }
 
   getTweetsMedia (req, res) {
@@ -43,16 +52,25 @@ module.exports = class TwitterController {
       count: count,
       maxId: req.query.max_id
     })
-    .then((tweets) => {
-      if (tweets.error) this.respond(res, tweets, 500)
-      if (!tweets || !tweets.length) this.respond(res, [])
+    .then(
+      // success
+      (tweets) => {
+        if (tweets.error) this.respond(res, tweets, 500)
+        if (!tweets || !tweets.length) this.respond(res, [])
 
-      // filter tweets with media
-      var tweetsMedia = tweets.filter((tweet) => tweet.extended_entities)
-      logger.info(`${tweetsMedia.length} out of ${tweets.length} tweets have media`)
+        // filter tweets with media
+        var tweetsMedia = tweets.filter((tweet) => tweet.extended_entities)
+        logger.info(`${tweetsMedia.length} out of ${tweets.length} tweets have media`)
 
-      this.respond(res, tweetsMedia)
-    })
+        this.respond(res, tweetsMedia)
+      },
+
+      // fail
+      (error) => {
+        logger.error('ERROR: getTweets:', error)
+        this.respond(res, error, 500)
+      }
+    )
   }
 
   getUser (req, res) {

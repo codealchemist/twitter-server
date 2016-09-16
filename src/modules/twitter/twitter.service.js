@@ -87,14 +87,12 @@ module.exports = class TwitterService {
           },
           dataType: 'json'
         })
-        .then((response) => onResponse(response, this.removeRepeatedMax))
-        .fail(reject)
-
-        function onResponse (response, removeRepeatedMax) {
-          var body = response.getBody()
-          if (maxId) body = removeRepeatedMax(body, maxId)
-          resolve(body)
-        }
+        .then((response) => {
+          let tweets = response.getBody()
+          if (maxId) tweets = this.removeRepeatedMax(tweets, maxId)
+          resolve(tweets)
+        })
+        .fail((error) => reject(error))
       })
     })
 
