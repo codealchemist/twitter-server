@@ -61,12 +61,11 @@ if (config.cacheTtl) {
 }
 
 // set ip and port
-var ip = config.ip || '127.0.0.1'
-var port = config.port || process.env.port || 3080
+// var ip = config.ip || '127.0.0.1'
+var port = process.env.PORT || config.port || process.env.port || 3080
 
-// set port and ip
+// set port
 app.set('port', port)
-app.set('ip', ip)
 
 app.use(cors())
 app.use(morgan('dev')) // logger
@@ -91,7 +90,7 @@ if (app.get('env') === 'development') {
 require('./routes')(app, config)
 
 // start server
-http.createServer(app).listen(app.get('port'), app.get('ip'), function () {
+http.createServer(app).listen(app.get('port'), function () {
   console.info()
   console.info('✔ Express server listening at http://%s:%d ', app.get('ip'), app.get('port'))
   console.info('-'.repeat(80))
