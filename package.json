@@ -6,7 +6,7 @@
   "scripts": {
     "test": "standard && npm-check -p && mocha --compilers js:babel-core/register --recursive --reporter spec",
     "test-watch": "mocha --compilers js:babel-core/register --watch --recursive --reporter spec",
-    "start": "node src/index.js"
+    "start": "node --harmony-destructuring src/index.js"
   },
   "repository": {
     "type": "git",
