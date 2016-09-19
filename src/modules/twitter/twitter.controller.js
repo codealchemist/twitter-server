@@ -1,3 +1,4 @@
+"use strict";
 const TwitterService = require('./twitter.service')
 const winston = require('winston')
 const logger = new (winston.Logger)({

@@ -1,3 +1,4 @@
+"use strict";
 #!/bin/env node
 
 const express = require('express')
