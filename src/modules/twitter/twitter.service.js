@@ -137,7 +137,8 @@ module.exports = class TwitterService {
           method: 'GET',
           cache: {
             cache: true,
-            expires: 1000 * 60 * this.cacheTtl.users
+            expires: 1000 * 60 * this.cacheTtl.users,
+            cachedFirst: true // returns cached data before updating cache
           },
           headers: {
             Authorization: 'Bearer ' + accessToken

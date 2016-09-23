@@ -6,7 +6,7 @@
   "scripts": {
     "test": "standard && npm-check -p && mocha --compilers js:babel-core/register --recursive --reporter spec",
     "test-watch": "mocha --compilers js:babel-core/register --watch --recursive --reporter spec",
-    "start": "node --harmony-destructuring src/index.js --config config.json"
+    "start": "node src/index.js --config config.json"
   },
   "repository": {
     "type": "git",
@@ -41,7 +41,7 @@
     "minimist": "^1.2.0",
     "morgan": "^1.7.0",
     "oauth": "^0.9.14",
-    "requestify": "^0.2.3",
+    "requestify": "https://github.com/codealchemist/requestify.git",
     "winston": "^2.2.0"
   },
   "standard": {
