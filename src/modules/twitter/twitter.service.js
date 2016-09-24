@@ -1,4 +1,5 @@
-"use strict";
+'use strict'
+
 const requestify = require('requestify')
 const OAuth2 = require('oauth').OAuth2
 const querystring = require('querystring')

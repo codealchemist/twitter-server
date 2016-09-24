@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -62,7 +62,7 @@ if (config.cacheTtl) {
 
 // set ip and port
 // var ip = config.ip || '127.0.0.1'
-var port = process.env.PORT || config.port || process.env.port || 3080
+var port = process.env.PORT || config.port || process.env.port || 3080
 
 // set port
 app.set('port', port)
