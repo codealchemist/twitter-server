@@ -1,0 +1,16 @@
+{
+  "cors": {
+    "whitelist": ["https://atgallery.herokuapp.com"]
+  },
+  "twitter": {
+    "key": "l3ZY8rW2TwbtFJlGCBhA",
+    "secret": "wSjZ5uv5NJVEJfDQ0f6TGExiOZf6kfDrKWqze98uBQ"
+  },
+  "tweetsPerRequest": 100,
+  "ip": "127.0.0.1",
+  "port": "3080",
+  "cacheTtl": {
+    "users": 45,
+    "tweets": 5
+  }
+}

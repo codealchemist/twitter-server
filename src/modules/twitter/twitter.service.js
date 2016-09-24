@@ -72,7 +72,7 @@ module.exports = class TwitterService {
         var requestParamsObj = {
           screen_name: username,
           count: count,
-          exclude_replies: true
+          exclude_replies: false
         }
         if (maxId) requestParamsObj.max_id = maxId
 
