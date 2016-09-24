@@ -67,9 +67,9 @@ module.exports = class TwitterController {
         // if no tweets with media in current batch
         // request another one
         if (!tweetsMedia.length) {
-          logger.info('no media tweets, get another batch')
           var lastTweet = tweets.slice(-1)[0]
           req.query.max_id = lastTweet.id
+          logger.info('no media tweets, get another batch: max_id:', lastTweet.id)
           return this.getTweetsMedia(req, res)
         }
 
