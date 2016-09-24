@@ -67,7 +67,8 @@ var port = process.env.PORT || config.port || process.env.port || 3080
 // set port
 app.set('port', port)
 
-app.use(cors())
+var corsOptions = config.cors || null
+app.use(cors(corsOptions))
 app.use(morgan('dev')) // logger
 app.use(bodyParser.json())
 app.use(cookieParser())

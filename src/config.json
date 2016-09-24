@@ -1,4 +1,8 @@
 {
+  "cors": {
+    "origin": "https://atgallery.herokuapp.com",
+    "optionsSuccessStatus": 200
+  },
   "twitter": {
     "key": null,
     "secret": null
