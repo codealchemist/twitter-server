@@ -57,12 +57,22 @@ module.exports = class TwitterController {
       // success
       (tweets) => {
         if (tweets.error) this.respond(res, tweets, 500)
-        if (!tweets || !tweets.length) this.respond(res, [])
+        if (!tweets || !tweets.length) return this.respond(res, [])
 
         // filter tweets with media
         var tweetsMedia = tweets.filter((tweet) => tweet.extended_entities)
         logger.info(`${tweetsMedia.length} out of ${tweets.length} tweets have media`)
 
+        // if no tweets with media in current batch
+        // request another one
+        if (!tweetsMedia.length) {
+          logger.info('no media tweets, get another batch')
+          var lastTweet = tweets.slice(-1)[0]
+          req.query.max_id = lastTweet.id
+          return this.getTweetsMedia(req, res)
+        }
+
+        // return tweets with media
         this.respond(res, tweetsMedia)
       },
 

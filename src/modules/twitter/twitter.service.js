@@ -70,7 +70,8 @@ module.exports = class TwitterService {
       this.getAccessToken().then((accessToken) => {
         var requestParamsObj = {
           screen_name: username,
-          count: count
+          count: count,
+          exclude_replies: true
         }
         if (maxId) requestParamsObj.max_id = maxId
 
