@@ -32,6 +32,17 @@ These are the default values expressed in minutes:
 
 Set a value of `0` to disable cache for an endpoint.
 
+## CORS
+
+By default all domains are allowed.
+You can setup CORS whitelisting by adding this to your config file to avoid responding to not allowed domains:
+
+```
+"cors": {
+  "whitelist": ["http://your-domain.com"]
+},
+```
+
 ## Setup
 Make a copy of `src/config.json` and set your Twitter credentials by replacing `key` and `secret` with your app's data.
 
