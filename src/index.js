@@ -69,11 +69,20 @@ app.set('port', port)
 
 // set cors options
 var corsOptions = null
-if (config.cors && config.cors.whitelist) {
+if (config.cors && config.cors.whitelist && config.cors.whitelist.length) {
   corsOptions = {
     origin: function(origin, callback){
-      var originIsWhitelisted = config.cors.whitelist.indexOf(origin) !== -1
-      callback(originIsWhitelisted ? null : 'Origin Not Allowed', originIsWhitelisted)
+      if (!origin) return callback(null, true) // allow localhost
+
+      var isAllowed = config.cors.whitelist.some((allowedDomain) => {
+        return origin.match(allowedDomain)
+      })
+
+      // allowed domain
+      if (isAllowed) return callback(null, true)
+
+      // not allowed domain
+      callback('Origin Not Allowed', false)
     }
   }
 }
