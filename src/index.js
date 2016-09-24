@@ -67,7 +67,17 @@ var port = process.env.PORT || config.port || process.env.port || 3080
 // set port
 app.set('port', port)
 
-var corsOptions = config.cors || null
+// set cors options
+var corsOptions = null
+if (config.cors && config.cors.whitelist) {
+  corsOptions = {
+    origin: function(origin, callback){
+      var originIsWhitelisted = config.cors.whitelist.indexOf(origin) !== -1
+      callback(originIsWhitelisted ? null : 'Origin Not Allowed', originIsWhitelisted)
+    }
+  }
+}
+
 app.use(cors(corsOptions))
 app.use(morgan('dev')) // logger
 app.use(bodyParser.json())
