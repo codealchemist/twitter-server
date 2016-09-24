@@ -40,7 +40,7 @@ You can setup CORS whitelisting by adding this to your config file to avoid resp
 ```
 "cors": {
   "whitelist": ["http://your-domain.com"]
-},
+}
 ```
 
 ## Setup
