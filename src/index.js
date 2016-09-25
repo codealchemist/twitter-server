@@ -72,10 +72,10 @@ var corsOptions = null
 if (config.cors && config.cors.whitelist && config.cors.whitelist.length) {
   corsOptions = {
     origin: function(origin, callback){
-      if (!origin) return callback(null, true) // allow localhost
+      if (!origin) return callback('Origin Not Allowed', false)
 
       var isAllowed = config.cors.whitelist.some((allowedDomain) => {
-        return origin.match(allowedDomain)
+        return origin.match('$' + allowedDomain)
       })
 
       // allowed domain
