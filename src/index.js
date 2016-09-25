@@ -75,7 +75,7 @@ if (config.cors && config.cors.whitelist && config.cors.whitelist.length) {
       if (!origin) return callback('Origin Not Allowed', false)
 
       var isAllowed = config.cors.whitelist.some((allowedDomain) => {
-        return origin.match('$' + allowedDomain)
+        return origin.match('^' + allowedDomain)
       })
 
       // allowed domain
