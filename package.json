@@ -1,6 +1,6 @@
 {
   "name": "twitter-server",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "Provides easy Twitter integration. Connects to the Twitter API using OAuth2 and exposes basic endpoints to retrieve tweets and users.",
   "main": "src/index.js",
   "scripts": {
