@@ -1,0 +1,16 @@
+{
+  "cors": {
+    "whitelist": []
+  },
+  "twitter": {
+    "key": null,
+    "secret": null
+  },
+  "tweetsPerRequest": 70,
+  "ip": "127.0.0.1",
+  "port": "3080",
+  "cacheTtl": {
+    "users": 15,
+    "tweets": 2
+  }
+}
