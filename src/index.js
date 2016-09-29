@@ -53,7 +53,29 @@ if (configFile === defaultConfigFile) {
   console.info()
 }
 console.info('- Config file:', configFile)
-var config = require(configFile)
+var config
+try {
+  config = require(configFile)
+} catch(e) {
+  // default config fallback, when there's no default config file
+  config = {
+    "cors": {
+      "whitelist": []
+    },
+    "twitter": {
+      "key": null,
+      "secret": null
+    },
+    "tweetsPerRequest": 70,
+    "ip": "127.0.0.1",
+    "port": "3080",
+    "cacheTtl": {
+      "users": 15,
+      "tweets": 2
+    }
+  }
+}
+
 if (config.cacheTtl) {
   console.info('- Cache TTL (minutes):', config.cacheTtl)
 } else {
