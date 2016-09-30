@@ -50,6 +50,27 @@ While signed in to Twitter open [your Twitter apps page](https://apps.twitter.co
 
 You will provide this config file when starting twitter-server.
 
+**Sample config:**
+```
+{
+  "cors": {
+    "whitelist": []
+  },
+  "twitter": {
+    "key": null,
+    "secret": null
+  },
+  "tweetsPerRequest": 70,
+  "ip": "127.0.0.1",
+  "port": "3080",
+  "cacheTtl": {
+    "users": 15,
+    "tweets": 2
+  }
+}
+```
+
+
 ## Install
 
 Using git:
@@ -102,6 +123,18 @@ It will check:
 `npm run test-watch`
 
 This will run unit tests only, continually watching for file changes.
+
+
+## Notes
+
+Requires node above v4.1.
+If your current node version doesn't support destructuring you'll need to add the following flag after the node command:
+
+`--harmony_destructuring`
+
+You'll need to add this to `package.json` in the `scripts` section to the `start` entry, or in the command line if you directly run the app with `node`, example:
+
+`node --harmony_destructuring src/index.js`
 
 ## Thanks
 
