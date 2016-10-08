@@ -50,5 +50,8 @@
       "it",
       "beforeEach"
     ]
+  },
+  "engines": {
+    "node": "6.*"
   }
 }
