@@ -193,13 +193,6 @@ module.exports = class TwitterService {
           let tweets = data.statuses
           let metadata = data.search_metadata
           if (maxId) data.statuses = this.removeRepeatedMax(tweets, maxId)
-
-
-          let lastTweet = tweets.slice(-1)[0]
-          console.log('--- last tweet id:', lastTweet.id)
-          console.log('--- max id from metadata:', metadata.max_id)
-
-
           resolve(data)
         })
         .fail((error) => reject(error))
