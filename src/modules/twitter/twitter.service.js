@@ -159,4 +159,53 @@ module.exports = class TwitterService {
 
     return promise
   }
+
+  search({query, count=20, maxId}) {
+    var promise = new Promise((resolve, reject) => {
+      if (this.mockedMode) return resolve(this.mocks.tweets)
+
+      this.getAccessToken().then((accessToken) => {
+        var requestParamsObj = {
+          q: query,
+          // result_type: 'popular',
+          include_entities: 1,
+          count: count
+        }
+        if (maxId) requestParamsObj.max_id = maxId
+
+        var requestParams = querystring.stringify(requestParamsObj)
+        logger.info('search: request params: ', requestParams)
+        var url = 'https://api.twitter.com/1.1/search/tweets.json?' + requestParams
+        logger.info('search url:', url)
+        requestify.request(url, {
+          method: 'GET',
+          cache: {
+            cache: true,
+            expires: 1000 * 60 * this.cacheTtl.tweets
+          },
+          headers: {
+            Authorization: 'Bearer ' + accessToken
+          },
+          dataType: 'json'
+        })
+        .then((response) => {
+          let data = response.getBody()
+          let tweets = data.statuses
+          let metadata = data.search_metadata
+          if (maxId) data.statuses = this.removeRepeatedMax(tweets, maxId)
+
+
+          let lastTweet = tweets.slice(-1)[0]
+          console.log('--- last tweet id:', lastTweet.id)
+          console.log('--- max id from metadata:', metadata.max_id)
+
+
+          resolve(data)
+        })
+        .fail((error) => reject(error))
+      })
+    })
+
+    return promise
+  }
 }

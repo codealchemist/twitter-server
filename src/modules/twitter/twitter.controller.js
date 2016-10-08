@@ -97,6 +97,66 @@ module.exports = class TwitterController {
       })
   }
 
+  search (req, res) {
+    var query = req.params.query
+    if (!query) throw new Error('NO QUERY SPECIFIED! URL format: /search/[query]')
+
+    // get tweets for current username
+    req.query = req.query || {}
+    let count = req.query.count || this.config.tweetsPerRequest
+    this.twitter.search({
+      query: query,
+      count: count,
+      maxId: req.query.max_id
+    })
+    .then(
+      // success
+      (tweets) => {
+        if (tweets.error) this.respond(res, tweets, 500)
+        if (!tweets || !tweets.length) this.respond(res, [])
+        this.respond(res, tweets)
+      },
+
+      // fail
+      (error) => {
+        logger.error('ERROR: search:', error)
+        this.respond(res, error, 500)
+      }
+    )
+  }
+
+  searchMedia (req, res) {
+    var query = req.params.query
+    if (!query) throw new Error('NO QUERY SPECIFIED! URL format: /search/[query]')
+
+    // add media filter
+    if (!query.match(/filter:media/)) query+=' filter:media'
+    query+=' exclude:retweets exclude:replies'
+
+    // get tweets for current username
+    req.query = req.query || {}
+    let count = req.query.count || this.config.tweetsPerRequest
+    this.twitter.search({
+      query: query,
+      count: count,
+      maxId: req.query.max_id
+    })
+    .then(
+      // success
+      (response) => {
+        if (response.error) this.respond(res, response, 500)
+        if (!response.statuses || !response.statuses.length) this.respond(res, [])
+        this.respond(res, response)
+      },
+
+      // fail
+      (error) => {
+        logger.error('ERROR: search:', error)
+        this.respond(res, error, 500)
+      }
+    )
+  }
+
   /**
    * Send JSON response to client.
    *
