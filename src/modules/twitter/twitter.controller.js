@@ -130,8 +130,8 @@ module.exports = class TwitterController {
     if (!query) throw new Error('NO QUERY SPECIFIED! URL format: /search/[query]')
 
     // add media filter
-    if (!query.match(/filter:media/)) query+=' filter:media'
-    query+=' exclude:retweets exclude:replies'
+    if (!query.match(/filter:media/)) query += ' filter:media'
+    query += ' exclude:retweets exclude:replies'
 
     // get tweets for current username
     req.query = req.query || {}

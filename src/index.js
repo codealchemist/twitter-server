@@ -56,22 +56,22 @@ console.info('- Config file:', configFile)
 var config
 try {
   config = require(configFile)
-} catch(e) {
+} catch (e) {
   // default config fallback, when there's no default config file
   config = {
-    "cors": {
-      "whitelist": []
+    'cors': {
+      'whitelist': []
     },
-    "twitter": {
-      "key": null,
-      "secret": null
+    'twitter': {
+      'key': null,
+      'secret': null
     },
-    "tweetsPerRequest": 70,
-    "ip": "127.0.0.1",
-    "port": "3080",
-    "cacheTtl": {
-      "users": 15,
-      "tweets": 2
+    'tweetsPerRequest': 70,
+    'ip': '127.0.0.1',
+    'port': '3080',
+    'cacheTtl': {
+      'users': 15,
+      'tweets': 2
     }
   }
 }
@@ -93,7 +93,7 @@ app.set('port', port)
 var corsOptions = null
 if (config.cors && config.cors.whitelist && config.cors.whitelist.length) {
   corsOptions = {
-    origin: function(origin, callback){
+    origin: function (origin, callback) {
       if (!origin) return callback('Origin Not Allowed', false)
 
       var isAllowed = config.cors.whitelist.some((allowedDomain) => {

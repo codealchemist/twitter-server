@@ -160,7 +160,7 @@ module.exports = class TwitterService {
     return promise
   }
 
-  search({query, count=20, maxId}) {
+  search ({query, count = 20, maxId}) {
     var promise = new Promise((resolve, reject) => {
       if (this.mockedMode) return resolve(this.mocks.tweets)
 
@@ -191,7 +191,7 @@ module.exports = class TwitterService {
         .then((response) => {
           let data = response.getBody()
           let tweets = data.statuses
-          let metadata = data.search_metadata
+          // let metadata = data.search_metadata
           if (maxId) data.statuses = this.removeRepeatedMax(tweets, maxId)
           resolve(data)
         })
