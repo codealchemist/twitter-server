@@ -56,11 +56,6 @@ app.use(morgan('dev')) // logger
 app.use(bodyParser.json())
 app.set('json spaces', 2)
 
-// development only
-if (app.get('env') === 'development') {
-  app.use(errorhandler())
-}
-
 // set routes
 require('./routes')(app, config)
 
