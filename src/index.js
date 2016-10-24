@@ -62,7 +62,7 @@ require('./routes')(app, config)
 // start server
 http.createServer(app).listen(app.get('port'), function () {
   console.info()
-  console.info('✔ Express server listening at port %d ', app.get('port'))
+  console.info(`✔ Express server listening at port ${port}`)
   console.info('-'.repeat(80))
 })
 
