@@ -6,7 +6,7 @@ chai.use(chaiAsPromised)
 // ------------------------------
 
 const TwitterService = require('./../../../src/modules/twitter/twitter.service')
-const config = require('./../../../src/config')
+const config = require('./../../../src/config.json')
 
 describe('TwitterService', function () {
   var twitterService
