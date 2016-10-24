@@ -1,7 +1,10 @@
 {
   "cors": {
     "whitelist": [
-      
+      "https://www.atgallery.me",
+      "http://www.atgallery.me",
+      "https://atgallery.herokuapp.com",
+      "http://atgallery.herokuapp.com"
     ]
   },
   "twitter": {
