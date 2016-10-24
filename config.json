@@ -1,15 +1,12 @@
 {
   "cors": {
     "whitelist": [
-      "https://www.atgallery.me",
-      "http://www.atgallery.me",
-      "https://atgallery.herokuapp.com",
-      "http://atgallery.herokuapp.com"
+
     ]
   },
   "twitter": {
-    "key": "l3ZY8rW2TwbtFJlGCBhA",
-    "secret": "wSjZ5uv5NJVEJfDQ0f6TGExiOZf6kfDrKWqze98uBQ"
+    "key": "",
+    "secret": ""
   },
   "tweetsPerRequest": 100,
   "ip": "127.0.0.1",
