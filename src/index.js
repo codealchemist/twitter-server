@@ -3,7 +3,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const errorhandler = require('errorhandler')
 const http = require('http')
 const cors = require('cors')
 const app = express()
